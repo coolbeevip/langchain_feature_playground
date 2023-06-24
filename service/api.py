@@ -38,7 +38,7 @@ def upload_file():
 
 
 @app.route('/api/openai/conversation/<session_id>', methods=['POST'])
-def openai_conversation(session_id):
+def openai_conversations(session_id):
     request_json = request.get_json()
     if session_id in openai_conversations:
         langchain_openai = openai_conversations[session_id]
@@ -46,6 +46,15 @@ def openai_conversation(session_id):
         langchain_openai = LangChainOpenAI().get_langchain_openai(ChainType.CONVERSATION)
         openai_conversations[session_id] = langchain_openai
 
+    answer = langchain_openai.get_answer(request_json['question'])
+    json_data = json.dumps({'answer': answer}, ensure_ascii=False)
+    return app.response_class(json_data, 200, mimetype='application/json')
+
+
+@app.route('/api/openai/documents', methods=['POST'])
+def openai_documents():
+    request_json = request.get_json()
+    langchain_openai = LangChainOpenAI().get_langchain_openai(ChainType.DOCUMENT)
     answer = langchain_openai.get_answer(request_json['question'])
     json_data = json.dumps({'answer': answer}, ensure_ascii=False)
     return app.response_class(json_data, 200, mimetype='application/json')

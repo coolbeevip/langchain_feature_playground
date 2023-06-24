@@ -22,6 +22,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"question": "哪个国家�
 curl -X POST -H "Content-Type: application/json" -d '{"question": "那届世界杯谁获得了金靴奖?"}' http://localhost:5000/api/openai/conversation/0001
 ```
 
+LangChain Documents
+
+```curl
+curl -X POST -H "Content-Type: application/json" -d '{"question": "现在的美国总统是谁?"}' http://localhost:5000/api/openai/documents
+```
+
 Upload File
 
 ```curl

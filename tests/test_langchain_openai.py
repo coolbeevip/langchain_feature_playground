@@ -1,4 +1,3 @@
-import os
 import unittest
 
 from service.langchain_openai import LangChainOpenAI
@@ -8,13 +7,12 @@ from service.langchain_type import ChainType
 class TestLangChainAgent(unittest.TestCase):
 
     def setUp(self):
-        os.environ["OPENAI_API_KEY"] = "<your key>"
         self.langchain_openai = LangChainOpenAI()
 
     def test_agent(self):
         langchain_openai = self.langchain_openai.get_langchain_openai(ChainType.AGENT)
         answer = langchain_openai.get_answer("哪个国家获得了2002年足球世界杯冠军")
-        self.assertIn('巴西', answer)
+        self.assertIn('Brazil', answer)
 
     def test_conversation(self):
         langchain_openai = self.langchain_openai.get_langchain_openai(ChainType.CONVERSATION)
@@ -25,8 +23,8 @@ class TestLangChainAgent(unittest.TestCase):
 
     def test_document(self):
         langchain_openai = self.langchain_openai.get_langchain_openai(ChainType.DOCUMENT)
-        answer = langchain_openai.get_answer("Who is the current president of United States?")
-        self.assertIn('Joe Biden', answer)
+        answer = langchain_openai.get_answer("现在的美国总统是谁?")
+        self.assertIn('Biden', answer)
 
 
 if __name__ == '__main__':
