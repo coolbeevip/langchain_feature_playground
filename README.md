@@ -15,6 +15,12 @@ make run
 
 ## API
 
+LangChain Agent with Wikipedia and LLM
+
+```curl
+curl -X POST -H "Content-Type: application/json" -d '{"question": "现在的美国总统是谁?"}' http://localhost:5000/api/openai/agent
+```
+
 LangChain Conversations
 
 ```curl

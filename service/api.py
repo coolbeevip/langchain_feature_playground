@@ -37,6 +37,15 @@ def upload_file():
         return jsonify({'message': 'File uploaded successfully'}), 200
 
 
+@app.route('/api/openai/agent', methods=['POST'])
+def openai_agent():
+    request_json = request.get_json()
+    langchain_openai = LangChainOpenAI().get_langchain_openai(ChainType.AGENT)
+    answer = langchain_openai.get_answer(request_json['question'])
+    json_data = json.dumps({'answer': answer}, ensure_ascii=False)
+    return app.response_class(json_data, 200, mimetype='application/json')
+
+
 @app.route('/api/openai/conversation/<session_id>', methods=['POST'])
 def openai_conversations(session_id):
     request_json = request.get_json()
