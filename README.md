@@ -9,7 +9,7 @@ make init
 Run
 
 ```shell
-export OPENAI_API_KEY=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
+export OPENAI_API_KEY=<your key>
 make run
 ```
 

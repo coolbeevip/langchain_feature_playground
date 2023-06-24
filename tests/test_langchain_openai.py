@@ -8,7 +8,7 @@ from service.langchain_type import ChainType
 class TestLangChainAgent(unittest.TestCase):
 
     def setUp(self):
-        os.environ["OPENAI_API_KEY"] = "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"
+        os.environ["OPENAI_API_KEY"] = "<your key>"
         self.langchain_openai = LangChainOpenAI()
 
     def test_agent(self):
