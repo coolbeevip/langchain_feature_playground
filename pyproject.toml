@@ -1,0 +1,28 @@
+[project]
+name = "service"
+version = "0.0.1"
+description = ""
+license = {text = "Apache License 2"}
+authors = [{name = "Lei Zhang", email = "zhanglei@apache.org"}]
+requires-python = ">=3.8"
+
+dependencies = [
+    "Flask>=2.3.2",
+    "waitress>=2.1.2",
+    "argparse>=1.4.0",
+    "langchain>=0.0.209",
+    "openai>=0.27.8",
+    "wikipedia>=1.4.0"
+]
+
+[build-system]
+requires = ["flit_core >=3.3,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flake8]
+ignore = ['E231', 'E241']
+per-file-ignores = [
+    '__init__.py:F401',
+]
+max-line-length = 100
+count = true
