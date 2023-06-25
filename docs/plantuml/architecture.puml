@@ -1,0 +1,75 @@
+@startuml
+<style>
+.client {
+  BackgroundColor #12bdb9
+}
+.netgpt {
+  BackgroundColor palegreen
+}
+.lab {
+  BackgroundColor #ff9933
+}
+.ndcp {
+  BackgroundColor #ff6644
+}
+</style>
+agent BROWSER << client >>
+
+database "Elasticsearch"
+
+package "LangChain" {
+    [Indexer] << netgpt >>
+    [Vectorizer] << netgpt >>
+}
+package "REST API" {
+    [Search API] << netgpt >>
+    [Vectorize API] << netgpt >>
+}
+package "NDCP Proxy" {
+    [NDCP Client] << netgpt >>
+}
+package "Lab" {
+    [Prompt for Query] << lab >>
+    [LLM for Query] << lab >>
+    [Prompt for Answer Summary] << lab >>
+    [LLM for Answer Summary] << lab >>
+}
+package "NDCP Server" {
+    [NDCP API] << ndcp >>
+}
+note right of [Indexer]
+This creates the index,
+generates the embeddings and the metadata
+(source and title of the book, in this case),
+and adds them to the vector database.
+end note
+
+note right of [Vectorizer]
+This takes care of creating numerical vectors,
+called embeddings, from the documents (news articles)
+in your dataset.
+end note
+
+note right of [Elasticsearch]
+This is a database that stores and
+retrieves vectors representing documents
+end note
+
+BROWSER --> [Vectorize API] #line:red : User upload documents(csv)
+[Vectorize API] --> [Vectorizer] #line:red : Documents are processed to generate vectors(embeddings)
+[Vectorizer] --> [Indexer] #line:red
+[Indexer] --> "Elasticsearch" #line:red : Embeddings and metadata are stored in the vector DB
+
+BROWSER --> [Search API] #line:blue : User defines a search term
+[Search API] ..-> BROWSER #line:blue : User receives an answer to the query
+
+[Search API] --> "Elasticsearch" #line:blue : Query is vectorized and used to find most similar vectors(documents)
+"Elasticsearch" --> [Prompt for Query] #line:blue : Most similar documents are returned
+[Prompt for Query] --> [LLM for Query] #line:blue : Generate a prompt for NDCP query command
+[LLM for Query] --> [NDCP Client] #line:blue : Generate NDCP query command
+[NDCP Client] --> [NDCP API] #line:blue
+[NDCP API] ..-> [NDCP Client] #line:blue
+[NDCP Client] ..-> [Prompt for Answer Summary] #line:blue : Generate a prompt for summarizing the answer
+[Prompt for Answer Summary] ..-> [LLM for Answer Summary] #line:blue : Generate a prompt for summarizing the answer
+[LLM for Answer Summary] ..-> [Search API] #line:blue
+@enduml

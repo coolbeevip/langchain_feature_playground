@@ -39,3 +39,8 @@ Upload File
 ```curl
 curl -X POST -F "file=@tests/fixtures/test.txt" http://localhost:5000/api/upload
 ```
+
+## References
+
+* [Semantic Search with OpenSearch, Cohere, and FastAPI](https://dylancastillo.co/semantic-search-with-opensearch-cohere-and-fastapi/)
+* [Semantic Search with Elasticsearch, OpenAI, and LangChain](https://dylancastillo.co/semantic-search-elasticsearch-openai-langchain/)
