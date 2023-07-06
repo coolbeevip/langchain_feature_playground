@@ -1,7 +1,7 @@
+from langchain import HuggingFaceHub
 import os
 
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = "hf_RrVbibcAmWTTTYSMoleizhangPccgWIwXRaKBHigPi"
-from langchain import HuggingFaceHub
 
 template = """Question: {question}
 

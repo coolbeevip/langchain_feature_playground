@@ -39,14 +39,13 @@ package "NDCP Server" {
 }
 note right of [Indexer]
 This creates the index,
-generates the embeddings and the metadata
-(source and title of the book, in this case),
+generates the embeddings and the metadata,
 and adds them to the vector database.
 end note
 
 note right of [Vectorizer]
 This takes care of creating numerical vectors,
-called embeddings, from the documents (news articles)
+called embeddings, from the documents (csv)
 in your dataset.
 end note
 
